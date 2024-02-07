@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +15,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const divs = [];
+  for (let i = 0; i < 8; i++) {
+    // Adjust the number as needed
+    divs.push(
+      <div key={i} className="w-screen h-24 border-b border-slate-800"></div>
+    );
+  }
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="w-screen h-24 bg-slate-800"></div>
+        <div className="divs-container" style={{ position: "relative" }}>
+          {divs}
+          <div
+            className="children-container"
+            style={{ position: "absolute", top: 0 }}
+          >
+            {children}
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
