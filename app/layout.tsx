@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const divs = [];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 9; i++) {
     // Adjust the number as needed
     divs.push(
       <div key={i} className="w-screen h-24 border-b border-slate-800"></div>
@@ -24,8 +24,11 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" style={{ height: "100vh", overflow: "hidden" }}>
+      <body
+        className={inter.className}
+        style={{ height: "100%", overflow: "auto" }}
+      >
         <div className="w-screen h-24 bg-slate-800"></div>
         <div className="divs-container" style={{ position: "relative" }}>
           {divs}
