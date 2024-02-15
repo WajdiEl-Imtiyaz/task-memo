@@ -2,9 +2,9 @@ import React, { createRef, useState } from "react";
 
 const List = () => {
   const divs = [];
-  const refs = Array.from({ length: 20 }, () => createRef<HTMLDivElement>());
-  const [isTyping, setIsTyping] = useState(Array(20).fill(false));
+  const refs = Array.from({ length: 20 }, () => createRef<HTMLInputElement>());
   const [isChecked, setIsChecked] = useState(Array(20).fill(false));
+  const [isTyping, setIsTyping] = useState(Array(20).fill(false));
 
   const handleKeyDown = (event: React.KeyboardEvent, index: number) => {
     if (event.key === "Enter") {
@@ -16,41 +16,43 @@ const List = () => {
     }
   };
 
-  const handleInput = (
-    event: React.FormEvent<HTMLDivElement>,
-    index: number
-  ) => {
-    const newIsTyping = [...isTyping];
-    newIsTyping[index] = !!event.currentTarget.textContent;
-    setIsTyping(newIsTyping);
-  };
-
   const handleCheck = (index: number) => {
     const newIsChecked = [...isChecked];
     newIsChecked[index] = !newIsChecked[index];
     setIsChecked(newIsChecked);
   };
 
+  const handleInput = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const newIsTyping = [...isTyping];
+    newIsTyping[index] = !!event.target.value;
+    setIsTyping(newIsTyping);
+  };
+
   for (let i = 0; i < 20; i++) {
     divs.push(
       <div
         key={i}
-        ref={refs[i]}
         className={`w-full md:w-full h-12 border-b border-slate-800 whitespace-nowrap overflow-auto flex items-center justify-start pl-2 ${
           isChecked[i] ? "line-through" : ""
         }`}
-        contentEditable
-        onKeyDown={(event) => handleKeyDown(event, i)}
-        onInput={(event) => handleInput(event, i)}
       >
         {isTyping[i] && (
           <input
             type="checkbox"
-            className="mr-2"
-            checked={isChecked[i]}
             onChange={() => handleCheck(i)}
+            checked={isChecked[i]}
           />
         )}
+        <input
+          type="text"
+          onKeyDown={(event) => handleKeyDown(event, i)}
+          onChange={(event) => handleInput(event, i)}
+          ref={refs[i]}
+          className="pl-2 h-10 w-full"
+        />
       </div>
     );
   }
