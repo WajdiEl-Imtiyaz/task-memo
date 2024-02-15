@@ -17,7 +17,7 @@ const Accounts = () => {
   return (
     <div>
       <p
-        className="text-2xl md:transform md:-translate-y-20 cursor-pointer"
+        className="text-2xl md:transform -translate-y-9 md:-translate-y-20 cursor-pointer"
         onClick={() => setShowPopup(true)}
       >
         Start Tasks
