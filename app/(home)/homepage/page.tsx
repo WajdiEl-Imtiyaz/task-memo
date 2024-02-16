@@ -7,10 +7,10 @@ import React from "react";
 const homepage = () => {
   return (
     <div className="flex">
-      <div className="w-[200px]">
+      <div>
         <Tab />
       </div>
-      <div className="w-screen">
+      <div>
         <List />
       </div>
     </div>

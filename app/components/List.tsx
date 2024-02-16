@@ -35,7 +35,7 @@ const List = () => {
     divs.push(
       <div
         key={i}
-        className={`w-full md:w-full h-12 border-b border-slate-800 whitespace-nowrap overflow-auto flex items-center justify-start pl-2 ${
+        className={`w-screen h-12 border-b border-slate-800 flex items-center justify-start pl-2 ${
           isChecked[i] ? "line-through" : ""
         }`}
       >
@@ -51,7 +51,7 @@ const List = () => {
           onKeyDown={(event) => handleKeyDown(event, i)}
           onChange={(event) => handleInput(event, i)}
           ref={refs[i]}
-          className="pl-2 h-10 w-full"
+          className="pl-2 h-10 w-full outline-none"
         />
       </div>
     );
