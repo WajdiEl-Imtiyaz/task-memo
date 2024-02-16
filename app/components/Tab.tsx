@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { AlignJustifyIcon } from "lucide-react";
 
 const Tab = () => {
   const [isOpen, setIsOpen] = useState(window.innerWidth > 768);
@@ -33,22 +32,8 @@ const Tab = () => {
   }, []);
 
   return (
-    <div className="m-0 p-0 relative">
-      <div
-        className="absolute left-6 top-0 transform -translate-y-14 md:hidden text-white cursor-pointer"
-        onClick={handleIconClick}
-      >
-        <AlignJustifyIcon />
-      </div>
-      <div
-        className={`transition-transform duration-500 ease-in-out transform md:w-[200px] w-[150px] ${
-          isOpen
-            ? "translate-x-0 md:border-r-4 md:border-red-600 border-r-4 border-red-600 md:block"
-            : "-translate-x-full hidden"
-        } h-max md:translate-x-0`}
-      >
-        {divs}
-      </div>
+    <div className="relative">
+      <div className=" border-r-4 border-red-600 ">{divs}</div>
     </div>
   );
 };

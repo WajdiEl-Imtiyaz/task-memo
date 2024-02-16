@@ -35,7 +35,7 @@ const List = () => {
     divs.push(
       <div
         key={i}
-        className={`w-screen h-12 border-b border-slate-800 flex items-center justify-start pl-2 ${
+        className={`h-12 border-b border-slate-800 flex items-center justify-start pl-2 ${
           isChecked[i] ? "line-through" : ""
         }`}
       >
