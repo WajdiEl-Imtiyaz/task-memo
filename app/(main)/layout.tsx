@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,15 +16,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const divs = [];
-  for (let i = 0; i < 9; i++) {
-    // Adjust the number as needed
+  for (let i = 0; i < 20; i++) {
     divs.push(
-      <div key={i} className="w-screen h-24 border-b border-slate-800"></div>
+      <div key={i} className="w-screen h-12 border-b border-slate-800"></div>
     );
   }
 
   return (
-    <html lang="en" style={{ height: "100vh", overflow: "hidden" }}>
+    <html lang="en">
       <body
         className={inter.className}
         style={{ height: "100%", overflow: "auto" }}
