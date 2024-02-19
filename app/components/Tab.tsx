@@ -1,12 +1,4 @@
-import React, { useState, useEffect } from "react";
-
 const Tab = () => {
-  const [isOpen, setIsOpen] = useState(window.innerWidth > 768);
-
-  const handleIconClick = () => {
-    setIsOpen(!isOpen);
-  };
-
   const divs = [];
   for (let i = 0; i < 20; i++) {
     divs.push(
@@ -18,18 +10,6 @@ const Tab = () => {
       ></div>
     );
   }
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsOpen(window.innerWidth > 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <div className="relative">
