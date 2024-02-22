@@ -14,7 +14,7 @@ const Tab: React.FC<TabProps> = ({ setTabnum }) => {
           key={i}
           className="h-12 border-b border-slate-800 flex items-center justify-center"
         >
-          {i < 2 && (
+          {i < 3 && (
             <button onClick={() => handleButtonClick(i)}>List {i + 1}</button>
           )}
         </div>

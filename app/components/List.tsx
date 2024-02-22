@@ -1,41 +1,24 @@
-import React, { createRef, useState, useEffect } from "react";
-import TaskItem, { InputValueProps } from "./TaskItem";
+import React, { useState } from "react";
+import TaskItem, { InputValueProps } from "../components/TaskItem";
 
 interface ListProps {
   tabnum: number;
 }
 
 const List: React.FC<ListProps> = ({ tabnum }) => {
-  const [mylist1, setMyList1] = useState<InputValueProps[]>(
-    Array(1).fill({
-      inputValues: "",
-      isChecked: false,
-    })
+  const [mylist, setMyList] = useState<InputValueProps[]>(
+    Array(1).fill({ inputValues: "", isChecked: false })
   );
 
-  const [mylist2, setMyList2] = useState<InputValueProps[]>(
-    Array(1).fill({
-      inputValues: "",
-      isChecked: false,
-    })
-  );
-
-  const list1 = Array.from({ length: 10 }, (_, index) => (
-    <>
-      {tabnum}
-      <TaskItem tabnum={tabnum} index={index} key={index} />
-    </>
+  const list1 = Array.from({ length: 20 }, (_, index) => (
+    <TaskItem tabnum={0} index={1} key={index} data={mylist} />
   ));
 
-  return (
-    <div>
-      {tabnum === 0 ? (
-        <TaskItem tabnum={0} index={1} data={mylist1} />
-      ) : (
-        <TaskItem tabnum={1} index={2} data={mylist2} />
-      )}
-    </div>
-  );
+  const list2 = Array.from({ length: 20 }, (_, index) => (
+    <TaskItem tabnum={1} index={2} key={index} data={mylist} />
+  ));
+
+  return <div>{tabnum === 0 ? list1 : list2}</div>;
 };
 
 export default List;

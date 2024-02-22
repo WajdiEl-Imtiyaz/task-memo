@@ -11,8 +11,8 @@ const TaskItem: React.FC<{
   tabnum: number;
   index: number;
   data: InputValueProps[];
-}> = ({ tabnum, index, data }) => {
-  const refs1 = Array.from({ length: 1 }, () => createRef<HTMLInputElement>());
+}> = ({ index, data }) => {
+  // const refs1 = Array.from({ length: 1 }, () => createRef<HTMLInputElement>());
   const [rowProps, setrowProps] = useState<InputValueProps[]>(data);
   //   const [inputValues, setInputValues] = useState(() => {
   //     const saved = localStorage.getItem("inputValues" + tabnum);
@@ -34,30 +34,33 @@ const TaskItem: React.FC<{
   //     localStorage.setItem("inputValues" + tabnum, JSON.stringify(inputValues));
   //   }, [tabnum, isChecked, isTyping, inputValues]);
 
-  const handleKeyDown = (event: React.KeyboardEvent, index: number) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const nextIndex = index + 1;
-      if (nextIndex < refs1.length) {
-        refs1[nextIndex]?.current?.focus();
-      }
-    }
-  };
+  // const handleKeyDown = (event: React.KeyboardEvent, index: number) => {
+  //   if (event.key === "Enter") {
+  //     event.preventDefault();
+  //     const nextIndex = index + 1;
+  //     if (nextIndex < refs1.length) {
+  //       refs1[nextIndex]?.current?.focus();
+  //     }
+  //   }
+  // };
 
   const handleInput = (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const newInputValues = [rowProps[index].inputValues];
-    newInputValues[index] = event.target.value;
-    setInputValues(newInputValues);
+    const newInputValues = [...rowProps];
+    if (!newInputValues[index]) {
+      newInputValues[index] = { inputValues: "", isChecked: false };
+    }
+    newInputValues[index].inputValues = event.target.value;
+    setrowProps(newInputValues);
   };
 
-  const handleCheck = (index: number) => {
-    const newIsChecked = [rowProps[index].isChecked];
-    newIsChecked[index] = !newIsChecked[index];
-    setIsChecked(newIsChecked);
-  };
+  // const handleCheck = (index: number) => {
+  //   const newIsChecked = [...rowProps];
+  //   newIsChecked[index].isChecked = !newIsChecked[index].isChecked;
+  //   setrowProps(newIsChecked);
+  // };
 
   return (
     <div
@@ -70,13 +73,14 @@ const TaskItem: React.FC<{
           checked={isChecked[index]}
         />
       )} */}
+
       <input
         type="text"
-        onKeyDown={(event) => handleKeyDown(event, index)}
+        // onKeyDown={(event) => handleKeyDown(event, index)}
         onChange={(event) => handleInput(event, index)}
-        ref={refs1[index]}
+        // ref={refs1[index]}
         className="pl-2 h-10 w-full outline-none"
-        value={rowProps[index].inputValues[index]}
+        value={rowProps[index]?.inputValues || ""}
       />
     </div>
   );

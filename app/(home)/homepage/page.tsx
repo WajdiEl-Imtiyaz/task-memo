@@ -16,7 +16,7 @@ const Homepage = () => {
 
   return (
     <div>
-      <h1>{tabnum}</h1>
+      {/* <h1>{tabnum}</h1> */}
       <div className="w-screen h-24 bg-slate-800">
         <div
           className="text-white flex items-center justify-start cursor-pointer py-10 pl-5 w-20"
