@@ -1,6 +1,4 @@
-import { useState, createRef, useEffect } from "react";
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export interface InputValueProps {
   inputValues: string;
@@ -12,37 +10,14 @@ const TaskItem: React.FC<{
   index: number;
   data: InputValueProps[];
 }> = ({ index, data }) => {
-  // const refs1 = Array.from({ length: 1 }, () => createRef<HTMLInputElement>());
-  const [rowProps, setrowProps] = useState<InputValueProps[]>(data);
-  //   const [inputValues, setInputValues] = useState(() => {
-  //     const saved = localStorage.getItem("inputValues" + tabnum);
-  //     return saved ? JSON.parse(saved) : Array(20).fill("");
-  //   });
-  //   const [isTyping, setIsTyping] = useState(() => {
-  //     const saved = localStorage.getItem("isTyping" + tabnum);
-  //     return saved ? JSON.parse(saved) : Array(20).fill(false);
-  //   });
-
-  //   const [isChecked, setIsChecked] = useState(() => {
-  //     const saved = localStorage.getItem("isChecked" + tabnum);
-  //     return saved ? JSON.parse(saved) : Array(20).fill(false);
-  //   });
-
-  //   useEffect(() => {
-  //     localStorage.setItem("isChecked" + tabnum, JSON.stringify(isChecked));
-  //     localStorage.setItem("isTyping" + tabnum, JSON.stringify(isTyping));
-  //     localStorage.setItem("inputValues" + tabnum, JSON.stringify(inputValues));
-  //   }, [tabnum, isChecked, isTyping, inputValues]);
-
-  // const handleKeyDown = (event: React.KeyboardEvent, index: number) => {
-  //   if (event.key === "Enter") {
-  //     event.preventDefault();
-  //     const nextIndex = index + 1;
-  //     if (nextIndex < refs1.length) {
-  //       refs1[nextIndex]?.current?.focus();
-  //     }
-  //   }
-  // };
+  // Ensure that the data array has a corresponding entry for the specified index
+  const [rowProps, setRowProps] = useState<InputValueProps[]>(() => {
+    const initialData = [...data];
+    while (initialData.length <= index) {
+      initialData.push({ inputValues: "", isChecked: false });
+    }
+    return initialData;
+  });
 
   const handleInput = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -52,33 +27,31 @@ const TaskItem: React.FC<{
     if (!newInputValues[index]) {
       newInputValues[index] = { inputValues: "", isChecked: false };
     }
-    newInputValues[index].inputValues = event.target.value;
-    setrowProps(newInputValues);
-  };
 
-  // const handleCheck = (index: number) => {
-  //   const newIsChecked = [...rowProps];
-  //   newIsChecked[index].isChecked = !newIsChecked[index].isChecked;
-  //   setrowProps(newIsChecked);
-  // };
+    if (event.target.type === "text") {
+      newInputValues[index].inputValues = event.target.value;
+    } else if (event.target.type === "checkbox") {
+      newInputValues[index].isChecked = event.target.checked;
+    }
+
+    setRowProps(newInputValues);
+  };
 
   return (
     <div
       className={`h-12 border-b border-slate-800 flex items-center justify-start pl-2`}
     >
-      {/* {isTyping[index] && (
+      {rowProps[index]?.inputValues && (
         <input
           type="checkbox"
-          onChange={() => handleCheck(index)}
-          checked={isChecked[index]}
+          checked={rowProps[index]?.isChecked || false}
+          onChange={(event) => handleInput(event, index)}
         />
-      )} */}
+      )}
 
       <input
         type="text"
-        // onKeyDown={(event) => handleKeyDown(event, index)}
         onChange={(event) => handleInput(event, index)}
-        // ref={refs1[index]}
         className="pl-2 h-10 w-full outline-none"
         value={rowProps[index]?.inputValues || ""}
       />
